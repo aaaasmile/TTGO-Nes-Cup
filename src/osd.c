@@ -139,7 +139,8 @@ void osd_getinput(void) {
   const int ev[32] = {
       event_joypad1_up, event_joypad1_down, event_joypad1_left, event_joypad1_right,
       event_joypad1_select, event_joypad1_start, event_joypad1_a, event_joypad1_b,
-      event_state_save, event_state_load, 0, 0,
+      // event_state_save, event_state_load, 0, 0,
+			0, 0, 0, 0,
       0, 0, 0, 0,
       0, 0, 0, 0,
       0, 0, 0, 0,
@@ -151,8 +152,10 @@ void osd_getinput(void) {
   int x;
   oldb = b;
   event_t evh;
-  // nofrendo_log_printf("Input: %x\n", b);
-  for (x = 0; x < 16; x++) {
+  
+	nofrendo_log_printf("Input: %x\n", b);
+  
+	for (x = 0; x < 16; x++) {
     if (chg & 1) {
       evh = event_get(ev[x]);
       if (evh)
@@ -169,13 +172,12 @@ void osd_getmouse(int *x, int *y, int *button) {
 /* init / shutdown */
 
 static int logprint(const char *string) {
-  //return printf("%s", string);
-	//Serial.print(string);
-	return 0; 
+  return printf("[LOG] %s", string);
 }
 
 int osd_init() {
   nofrendo_log_chain_logfunc(logprint);
+	nofrendo_log_printf("osd_init is called...\n");
 
   if (osd_init_sound())
     return -1;

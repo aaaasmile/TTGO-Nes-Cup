@@ -75,3 +75,11 @@ void setup() {
 
 void loop() {
 }
+
+// extern "C" {
+//     int logprint(const char *string) {
+//         // return printf("%s", string);
+//         Serial.printf("[LOG] %s", string);
+//         return 0;
+//     }
+// }
