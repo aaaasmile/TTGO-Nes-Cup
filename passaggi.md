@@ -11,6 +11,7 @@ https://github.com/moononournation/Arduino_GFX
 Così sono riuscito a compilare il programma e a scaricarlo sul target. Però non funziona 
 e ricevo l'errore GUI: error: could not open SNSS file.   
 
+### Tentativo a vuoto
 Allora ho provato a usare il tool per il flash download tool, come descritto nel video. Esso si trova su:
 https://www.espressif.com/en/support/download/other-tools
 Una volta scaricato (D:\Arduino\PlatformIO\TTyGo-NES\reference\flash_download_tool_3.9.2), 
@@ -25,10 +26,17 @@ Anche questo step senza successo in quanto ricevo lo stesso errore. Per me è in
 in quanto quando carico il firmware da platform io esso va proprio a cancellare ed a riscrivere
 proprio questi segmenti, quindi me li sostituisce con il software di questo progetto.
 
-## Software in SRC
+## Software in SRC e problemi
 I files  osd.c, sound.c e diaplay.cpp sono dei files di callback di nesemu 
 Quando faccio "Upload Filesystem Image" ottengo questo
 Flash will be erased from 0x00290000 to 0x003fffff...
-Come faccio a sapere la ROM dove va a pescare?
-
+La rom viene pescata all'interno di spdiff senza problemi. 
+Disabilitando l'audio e anche i controlli sono riuscito a vedere la schermata iniziale.
+Il problema che avevo all'inizio era dovuto al fattto che i controlli erano settati male (hw_config.h)
+e l'evento loadstate veniva lanciato di continuo.
+L'audio, quando l'ho abilitato non mi ha fatto andare il display, per cui l'ho disabilitato per il momento.
+Per fare il trace nella console seriale basta usare la funzione nofrendo_log_printf() che manda 
+l'outout di printf() in console.
+TODO: i pulsanti UP/DOWN e LEFT/RIGHT sono settati assieme su GPIO 38 e 37 ma non danno il riscontro corretto.
+Probabilmente sono collegati male.
 
