@@ -83,7 +83,7 @@ extern void display_begin()
     //bg_color = gfx->color565(24, 28, 24); // DARK DARK GREY
     bg_color = gfx->color565(0, 0, 0);
     gfx->fillScreen(bg_color);
-    gfx->setRotation(1);
+    gfx->setRotation(3); // valori 0,1,2,3 varie orientazioni dello schermo. TTGO ha senso solo 1 e 3
 #ifdef TFT_BL
     // turn display backlight on
     ledcAttachPin(TFT_BL, 1);     // assign TFT_BL pin to channel 1

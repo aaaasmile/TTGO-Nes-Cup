@@ -139,8 +139,7 @@ void osd_getinput(void) {
   const int ev[32] = {
       event_joypad1_up, event_joypad1_down, event_joypad1_left, event_joypad1_right,
       event_joypad1_select, event_joypad1_start, event_joypad1_a, event_joypad1_b,
-      // event_state_save, event_state_load, 0, 0,
-			0, 0, 0, 0,
+      event_state_save, event_state_load, 0, 0,
       0, 0, 0, 0,
       0, 0, 0, 0,
       0, 0, 0, 0,
@@ -152,10 +151,12 @@ void osd_getinput(void) {
   int x;
   oldb = b;
   event_t evh;
-  
-	nofrendo_log_printf("Input: %x\n", b);
-  
-	for (x = 0; x < 16; x++) {
+
+  if (b != 0xffffffff) {
+    nofrendo_log_printf("Input: %x\n", b);
+  }
+
+  for (x = 0; x < 16; x++) {
     if (chg & 1) {
       evh = event_get(ev[x]);
       if (evh)
@@ -177,7 +178,7 @@ static int logprint(const char *string) {
 
 int osd_init() {
   nofrendo_log_chain_logfunc(logprint);
-	nofrendo_log_printf("osd_init is called...\n");
+  nofrendo_log_printf("osd_init is called...\n");
 
   if (osd_init_sound())
     return -1;
@@ -199,8 +200,8 @@ char configfilename[] = "na";
 int osd_main(int argc, char *argv[]) {
   config.filename = configfilename;
 
-  //Serial.printf("osd_main %s", argv[0]);
-	//argv[0] = "/fs/Chase.nes";
+  // Serial.printf("osd_main %s", argv[0]);
+  // argv[0] = "/fs/Chase.nes";
 
   return main_loop(argv[0], system_autodetect);
 }
