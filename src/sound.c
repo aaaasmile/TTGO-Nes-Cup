@@ -23,6 +23,7 @@ static int16_t *audio_frame;
 
 int osd_init_sound()
 {
+	nofrendo_log_printf("osd_init_sound is called...\n");
 	audio_frame = NOFRENDO_MALLOC(4 * DEFAULT_FRAGSIZE);
 
 	i2s_config_t cfg = {
@@ -44,7 +45,10 @@ int osd_init_sound()
 		.dma_buf_len = 256,
 		.use_apll = false,
 	};
-	i2s_driver_install(I2S_NUM_0, &cfg, 2, &queue);
+	esp_err_t err;
+
+	err = i2s_driver_install(I2S_NUM_0, &cfg, 2, &queue);
+	nofrendo_log_printf("i2s_driver_install is called, result is %d \n", err);
 #if defined(HW_AUDIO_EXTDAC)
 	i2s_pin_config_t pins = {
 		.bck_io_num = HW_AUDIO_EXTDAC_BCLK,
@@ -54,10 +58,13 @@ int osd_init_sound()
 	};
 	i2s_set_pin(I2S_NUM_0, &pins);
 #else  /* !defined(HW_AUDIO_EXTDAC) */
-	i2s_set_pin(I2S_NUM_0, NULL);
-	i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN);
+	err = i2s_set_pin(I2S_NUM_0, NULL);
+	nofrendo_log_printf("i2s_set_pin is called, result is %d \n", err);
+	err = i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN);
+	nofrendo_log_printf("i2s_set_dac_mode is called, result is %d \n", err);
 #endif /* !defined(HW_AUDIO_EXTDAC) */
-	i2s_zero_dma_buffer(I2S_NUM_0);
+	err = i2s_zero_dma_buffer(I2S_NUM_0);
+	nofrendo_log_printf("i2s_zero_dma_buffer is called, result is %d \n", err);
 
 	audio_callback = NULL;
 

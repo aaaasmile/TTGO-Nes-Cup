@@ -191,9 +191,6 @@ char configfilename[] = "na";
 int osd_main(int argc, char *argv[]) {
   config.filename = configfilename;
 
-  // Serial.printf("osd_main %s", argv[0]);
-  // argv[0] = "/fs/Chase.nes";
-
   return main_loop(argv[0], system_autodetect);
 }
 

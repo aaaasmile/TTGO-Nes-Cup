@@ -60,3 +60,12 @@ un tasto è premuto.
 ## Nes
 Nello sviluppo di Nes c'è anche un forum: https://forums.nesdev.org/
 
+## Audio
+Come nelle altre sezioni difficile capire quali siano i settings corretti.
+Nella mia configurazione uso TTGO con il modulo PAM8302A
+Da quello che ho capito il PAM8302A è solo un AMP senza DAC. Ha due ingressi differenziali
+che vengono usati GPIO 25 e GPIO 26. Il voltaggio è normalmente di 5V, ma anche i 3.3V che uso
+dovrebbero andare bene, specialmente in quanto voglio usare un mini altoparlante.
+Questa dovrebbe essere la linea che collega entrambi i DAC.
+i2s_set_dac_mode(I2S_DAC_CHANNEL_BOTH_EN);
+
