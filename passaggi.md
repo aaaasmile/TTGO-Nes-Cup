@@ -40,3 +40,6 @@ l'outout di printf() in console.
 TODO: i pulsanti UP/DOWN e LEFT/RIGHT sono settati assieme su GPIO 38 e 37 ma non danno il riscontro corretto.
 Probabilmente sono collegati male.
 
+## Nes
+Nello sviluppo di Nes c'è anche un forum: https://forums.nesdev.org/
+
