@@ -153,7 +153,7 @@ void osd_getinput(void) {
   event_t evh;
 
   if (b != 0xffffffff) {
-    nofrendo_log_printf("Input: %x\n", b);
+    //nofrendo_log_printf("Input: %x\n", b);
   }
 
   for (x = 0; x < 16; x++) {
