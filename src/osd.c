@@ -1,5 +1,4 @@
-/* start rewrite from: https://github.com/espressif/esp32-nesemu.git */
-// Questo è il file che esegue i callback dalla libreria "noferndo"
+// This file contains callbacks from the Lib "noferndo"
 #include <esp_heap_caps.h>
 #include <event.h>
 #include <freertos/FreeRTOS.h>
@@ -44,14 +43,13 @@ QueueHandle_t vidQueue;
 static void displayTask(void *arg) {
   bitmap_t *bmp = NULL;
   while (1) {
-    // xQueueReceive(vidQueue, &bmp, portMAX_DELAY); //skip one frame to drop to 30
     xQueueReceive(vidQueue, &bmp, portMAX_DELAY);
     display_write_frame((const uint8_t **)bmp->line);
   }
 }
 
 /* get info */
-static char fb[1];  // dummy
+static char fb[1]; 
 bitmap_t *myBitmap;
 
 /* initialise video */
@@ -76,20 +74,17 @@ static void set_palette(rgb_t *pal) {
 
   for (i = 0; i < 256; i++) {
     c = (pal[i].b >> 3) + ((pal[i].g >> 2) << 5) + ((pal[i].r >> 3) << 11);
-    // myPalette[i]=(c>>8)|((c&0xff)<<8);
     myPalette[i] = c;
   }
 }
 
 /* clear all frames to a particular color */
 static void clear(uint8 color) {
-  // SDL_FillRect(mySurface, 0, color);
   display_clear();
 }
 
 /* acquire the directbuffer for writing */
 static bitmap_t *lock_write(void) {
-  // SDL_LockSurface(mySurface);
   myBitmap = bmp_createhw((uint8 *)fb, NES_SCREEN_WIDTH, NES_SCREEN_HEIGHT, NES_SCREEN_WIDTH * 2);
   return myBitmap;
 }
@@ -104,18 +99,17 @@ static void custom_blit(bitmap_t *bmp, int num_dirties, rect_t *dirty_rects) {
   do_audio_frame();
 }
 
-viddriver_t sdlDriver =
-    {
-        "Simple DirectMedia Layer", /* name */
-        init,                       /* init */
-        shutdown,                   /* shutdown */
-        set_mode,                   /* set_mode */
-        set_palette,                /* set_palette */
-        clear,                      /* clear */
-        lock_write,                 /* lock_write */
-        free_write,                 /* free_write */
-        custom_blit,                /* custom_blit */
-        false                       /* invalidate flag */
+viddriver_t sdlDriver = {
+    "Simple DirectMedia Layer", /* name */
+    init,                       /* init */
+    shutdown,                   /* shutdown */
+    set_mode,                   /* set_mode */
+    set_palette,                /* set_palette */
+    clear,                      /* clear */
+    lock_write,                 /* lock_write */
+    free_write,                 /* free_write */
+    custom_blit,                /* custom_blit */
+    false                       /* invalidate flag */
 };
 
 void osd_getvideoinfo(vidinfo_t *info) {
@@ -153,7 +147,7 @@ void osd_getinput(void) {
   event_t evh;
 
   if (b != 0xffffffff) {
-    //nofrendo_log_printf("Input: %x\n", b);
+    // nofrendo_log_printf("Input: %x\n", b);
   }
 
   for (x = 0; x < 16; x++) {
@@ -170,8 +164,6 @@ void osd_getinput(void) {
 void osd_getmouse(int *x, int *y, int *button) {
 }
 
-/* init / shutdown */
-
 static int logprint(const char *string) {
   return printf("[LOG] %s", string);
 }
@@ -185,7 +177,6 @@ int osd_init() {
 
   display_init();
   vidQueue = xQueueCreate(1, sizeof(bitmap_t *));
-  // xTaskCreatePinnedToCore(&displayTask, "displayTask", 2048, NULL, 5, NULL, 1);
   xTaskCreatePinnedToCore(&displayTask, "displayTask", 2048, NULL, 0, NULL, 0);
   osd_initinput();
   return 0;
