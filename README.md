@@ -2,7 +2,7 @@
 This is a PlatformIO software project for my TTGO with a Nes emulator.
 It works with sound, integrated TTGO display and 8 buttons controls.
 
-![alt text](https://github.com/aaaasmile/TTGO-Nes-Cup/blob/master/doc/img400.png?raw=true)
+![alt text](https://github.com/aaaasmile/TTGO-Nes-Cup/blob/master/doc/img300.png?raw=true)
 
 ## Build and run
 Simply clone this repository and compile it with Platform IO and Visual Code.
