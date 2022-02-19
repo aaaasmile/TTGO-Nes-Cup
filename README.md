@@ -2,7 +2,7 @@
 This is a PlatformIO software project for my TTGO with a Nes emulator.
 It works with sound, integrated TTGO display and 8 buttons controls.
 
-![alt text](https://github.com/aaaasmile/TTGO-Nes-Cup/blob/master/doc/img300.png?raw=true)
+![Image Device](https://github.com/aaaasmile/TTGO-Nes-Cup/blob/a4d762e6691bbad3c06a60935f21f4182d078c36/doc/img200.png)
 
 ## Build and run
 Simply clone this repository and compile it with Platform IO and Visual Code.
@@ -30,7 +30,7 @@ with its internal DAC. Here is the final hardware configuration for my bread boa
     #define HW_CONTROLLER_GPIO_B 33
 
 ## Nes file
-Check the Data folder in this repository https://github.com/channel2007/TTGO_FC 
+Check the Data folder in this repository https://github.com/channel2007/TTGO_FC/esp32-nofrendo/data/ 
 to get a nes example file. It was also the repository that I used to start with this project.
 
 ## Credits
